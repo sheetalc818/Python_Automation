@@ -1,14 +1,15 @@
-import os
 import time
 import unittest
-
 from selenium import webdriver
 
 
 class FundooTest(unittest.TestCase):
 
     def setUp(self):  # This Function is executed before every test execution
-        self.driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        self.driver = webdriver.Chrome(options=options)
 
     def test_login(self):
         driver = self.driver
@@ -17,7 +18,7 @@ class FundooTest(unittest.TestCase):
         driver.get('https://fundoopush-dev.bridgelabz.com/login')
 
         driver.implicitly_wait(10)
-        driver.find_element_by_id("mat-input-0").send_keys("Enter use id here")
+        driver.find_element_by_id("mat-input-0").send_keys("androidshubham@gmail.com")
         driver.find_element_by_id("mat-input-1").send_keys("123456")
         driver.find_element_by_class_name("mat-button-wrapper").click()
         time.sleep(10)
@@ -53,11 +54,6 @@ class FundooTest(unittest.TestCase):
         # Add Description
         driver.find_element_by_xpath("//div[@class='ql-editor ql-blank']").send_keys("written script in Python")
         time.sleep(5)
-
-        # Upload Image
-        elm = driver.find_element_by_xpath("//div[@class='quill-style']")
-        elm.send_keys(os.getcwd() + "/Pictures/Wallpapers/alvo_fak.jpg")
-        time.sleep(10)
 
 
 if __name__ == '__main__':
